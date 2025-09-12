@@ -1,4 +1,4 @@
-name: Trivy FS scanning
+name: Trivy Filesystem Code Scanning
 
 on:
   schedule:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     if: github.event_name == 'workflow_dispatch' || ( github.event_name == 'schedule' && github.repository == 'kubeflow/dashboard' )
-    name: Trivy FS scan
+    name: Trivy Filesystem Code Scan
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -24,7 +24,7 @@ jobs:
       with:
         scan-type: 'fs'
         format: 'sarif'
-        severity: 'CRITICAL,HIGH'
+        severity: 'CRITICAL,HIGH,MEDIUM'
         ignore-unfixed: true
         output: 'trivy-fs-scan-results.sarif'
 
