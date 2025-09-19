@@ -13,7 +13,7 @@ resources:
 images:
 - name: ghcr.io/kubeflow/dashboard/dashboard
   newName: ghcr.io/kubeflow/dashboard/dashboard
-  newTag: latest
+  newTag: v1.11-alpha-andy
 configMapGenerator:
 - envs:
   - params.env
