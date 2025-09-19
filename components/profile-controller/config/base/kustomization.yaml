@@ -12,7 +12,7 @@ patchesStrategicMerge:
 images:
 - name: ghcr.io/kubeflow/dashboard/profile-controller
   newName: ghcr.io/kubeflow/dashboard/profile-controller
-  newTag: latest
+  newTag: v1.11-alpha-andy
 
 configMapGenerator:
 - name: namespace-labels-data

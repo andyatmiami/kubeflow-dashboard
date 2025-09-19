@@ -29,4 +29,4 @@ vars:
 images:
 - name: ghcr.io/kubeflow/dashboard/access-management
   newName: ghcr.io/kubeflow/dashboard/access-management
-  newTag: latest
+  newTag: v1.11-alpha-andy
