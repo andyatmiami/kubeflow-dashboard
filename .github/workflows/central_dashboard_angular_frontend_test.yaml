@@ -90,7 +90,19 @@ jobs:
           kubectl create namespace kubeflow
           kustomize build profile-controller/config/overlays/kubeflow | kubectl apply -f -
           kustomize build https://github.com/kubeflow/kubeflow//components/notebook-controller/config/overlays/kubeflow?ref=master | kubectl apply -f -
-          kubectl wait pods -n kubeflow -l kustomize.component=profiles --for=condition=Ready --timeout=300s
+          if ! kubectl wait pods -n kubeflow -l kustomize.component=profiles --for=condition=Ready --timeout=300s; then
+            echo "❌ Pods failed to become ready. Dumping diagnostics..."
+            echo "--- Pods in namespace kubeflow ---"
+            kubectl get pods -n kubeflow -l kustomize.component=profiles -o wide
+            echo "--- Describe Pods ---"
+            kubectl describe pods -n kubeflow -l kustomize.component=profiles
+            echo "--- Recent Pod Logs ---"
+            for p in $(kubectl get pods -n kubeflow -l kustomize.component=profiles -o name); do
+              echo ">>> Logs for $p"
+              kubectl logs -n kubeflow "$p" --tail=100 || true
+            done
+            exit 1
+          fi  
           kubectl wait pods -n kubeflow -l app=notebook-controller --for=condition=Ready --timeout=300s
 
       - name: Apply JWA manifests
