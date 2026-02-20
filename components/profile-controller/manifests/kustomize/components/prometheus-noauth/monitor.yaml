@@ -12,4 +12,4 @@ spec:
       scheme: http
   selector:
     matchLabels:
-      app.kubernetes.io/component: controller-manager
+      app.kubernetes.io/component: metrics
